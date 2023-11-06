@@ -22,19 +22,22 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    const inamgeLinkCollection = client
+    const iamgeLinkCollection = client
       .db("react-gallery")
       .collection("linkCollection");
     app.post("/newLink", async(req, res) => {
         const newLink = req.body;
-        const result = await inamgeLinkCollection.insertOne(newLink)
+        const result = await iamgeLinkCollection.insertOne(newLink)
         res.send(result);
         console.log(result);
     });
     app.get("/allLink", async(req,res)=>{
-        const result = await inamgeLinkCollection.find().sort({isFeatured:-1}).toArray();
-        console.log("hi");
+        const result = await iamgeLinkCollection.find().sort({isFeatured:-1}).toArray();
         res.send(result);
+    })
+    app.post("/updateFeature", async(req,res)=>{
+      const url = req.body;
+      console.log(url);
     })
   } catch {}
 }
